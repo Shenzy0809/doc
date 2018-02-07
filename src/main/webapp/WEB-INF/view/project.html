@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>项目</title>
+	<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="../css/fileinput.min.css">
+	<link rel="stylesheet" href="../css/page/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/page/w3.css"> 
+	<link rel="stylesheet" href="../css/page/style-kn-project-view.css">
+	<link rel="stylesheet" href="../css/page/style-theme.css">
+	<link rel="stylesheet" href="../css/page/project.css">
+	<link rel="stylesheet" href="../css/page/default.css">
+	<link rel="stylesheet" href="../css/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="../css/toastr/toastr.css">
+	<link rel="stylesheet" href="../css/bootstrap-editable.css">
+	<link rel="stylesheet" href="../plugins/bootstrap-table/css/bootstrap-table.min.css" />
+	<link rel="stylesheet" href="../plugins/sweetalert/sweetalert.css" />
+	<link rel="shortcut icon" href="../img/snowlink.ico"/>
+</head>
+<body>
+	<script type="text/javascript" src="../plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="../plugins/fileinput.min.js"></script>
+	<script type="text/javascript" src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../plugins/bootstrap-table/js/bootstrap-table.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-editable.js"></script>
+	<script type="text/javascript" src="../plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script type="text/javascript" src="../plugins/sweetalert/sweetalert-dev.js"></script>
+	<script src="../plugins/utils.js"></script>
+	<script src="../js/toastr.min.js"></script>
+	<script src="../js/project.js"></script>
+	<script src="../js/projectDocType.js"></script>
+	<script src="../js/projectDoc.js"></script>
+	<div id="m-splitter">
+		<ol class="breadcrumb" id="navigation" style="height: 40px;background-color:#eee;">
+		  <li class="active">项目文档</li>
+		</ol>
+		
+			<div id="firstNav"  style="display: none;">
+				<nav class="navbar navbar-default navbar-fixed-top" style="width:100%;margin-top:0px">
+					<div class="row" style="margin-right:0px;padding-top: 8px; padding-left: 20px;">
+						<div class="col-md-3">
+							<span class="input-group" style="color: black; padding: 3px;"> <span class="input-group-addon"
+								style="color: black; padding: 3px;">项目名称</span> <input type="text" id="projectNameQuery" class="form-control"
+								placeholder="请输入项目名称"> </span>
+						</div>
+						<div class="col-md-3">
+							<span class="input-group" style="color: black; padding: 3px;"> <span class="input-group-addon"
+								style="color: black; padding: 3px;">创建人</span> <input type="text" id="creatorQuery" class="form-control"
+								placeholder="请输入创建人 " > </span>
+						</div>
+						<div class="col-md-3" >
+							<span class="input-group" style="color: black; padding: 3px;"> <span class="input-group-addon"
+								style="color: black; padding: 3px;">跟新人</span> <input type="text" id="updatorQuery" class="form-control"
+								placeholder="请输入跟新人" > </span>
+						</div>
+						<div class="col-md-2" style="margin-left: -100px;">
+							<ul class="nav navbar-right" style="color: black; padding: 3px;">
+								<button type="button" class="btn btn-primary btn-sm"  onclick="projectQuery()">
+									<span class="glyphicon glyphicon-ok"></span> 查询
+								</button>
+								<button type="button" id="projectAddBtn" class="btn btn-primary btn-sm"  onclick="projectAdd()">
+									<span class="glyphicon glyphicon-ok"></span> 新增
+								</button>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		<!-- ======== -->
+		<div id="secondNav" style="display: none;">
+			<nav class="navbar navbar-default navbar-fixed-top" style="width:100%;margin-top:0px">
+					<div class="row" style="padding-top: 8px; padding-left: 20px;">
+						<div class="col-md-3">
+							<span class="input-group" style="color: black; padding: 3px;"> <span class="input-group-addon"
+								style="color: black; padding: 3px;">模块名称</span> <input type="text" id="projectDocTypeName" class="form-control"
+								placeholder="请输入模块名称"> </span>
+						</div>
+						<div class="col-md-3">
+							<span class="input-group" style="color: black; padding: 3px;"> <span class="input-group-addon"
+								style="color: black; padding: 3px;">创建人</span> <input type="text" id="projectDocTypecreator" class="form-control"
+								placeholder="请输入创建人 " > </span>
+						</div>
+						<div class="col-md-3" >
+							<span class="input-group" style="color: black; padding: 3px;"> <span class="input-group-addon"
+								style="color: black; padding: 3px;">跟新人</span> <input type="text" id="projectDocTypeupdator" class="form-control"
+								placeholder="请输入跟新人" > </span>
+						</div>
+						<div class="col-md-2" style="margin-left: -100px;">
+							<ul class="nav navbar-right" style="color: black; padding: 3px;">
+								<button type="button" class="btn btn-primary btn-sm"  onclick="projectDocTypeQuery()">
+									<span class="glyphicon glyphicon-ok"></span> 查询
+								</button>
+								<button type="button" id="projectDocTypeButton" class="btn btn-primary btn-sm"  onclick="projectDocTypeAdd()">
+									<span class="glyphicon glyphicon-ok"></span> 新增
+								</button>
+							
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+						<!--=====  -->
+			<div id="thirdNav" style="display: none;">
+				<nav class="navbar navbar-default navbar-fixed-top" style="width:100%;margin-top:0px">
+					<div class="row" style="padding-top: 8px; padding-left: 20px;">
+						<div class="col-md-3">
+							<span class="input-group" style="color: black; padding: 3px;"> <span class="input-group-addon"
+								style="color: black; padding: 3px;">文件名称</span> <input type="text" id="projectDocName" class="form-control"
+								placeholder="请输入文件名称"> </span>
+						</div>
+						<div class="col-md-3">
+							<span class="input-group" style="color: black; padding: 3px;"> <span class="input-group-addon"
+								style="color: black; padding: 3px;">上传人</span> <input type="text" id="projectDoccreator" class="form-control"
+								placeholder="请输入创建人 " > </span>
+						</div>
+						<div class="col-md-3" >
+							<span class="input-group" style="color: black; padding: 3px;"> <span class="input-group-addon"
+								style="color: black; padding: 3px;">跟新人</span> <input type="text" id="projectDocupdator" class="form-control"
+								placeholder="请输入跟新人" > </span>
+						</div>
+						
+						<div class="col-md-2" style="margin-left: -100px;">
+							<ul class="nav navbar-right" style="color: black; padding: 3px;">
+								<button type="button" class="btn btn-primary btn-sm"  onclick="projectDocQuery()">
+									<span class="glyphicon glyphicon-ok"></span> 查询
+								</button>							
+								<button type="button" id="projectDocuploadButton" class="btn btn-primary btn-sm"  onclick="projectDocupload()">
+									<span class="glyphicon glyphicon-ok"></span> 上传
+								</button>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<div id="pro-mian" >
+			<div class="" style="width: 86%">
+				<div id="pro-mian-header" style="width: 100%;margin-left: 0px">
+					<table id="projectTable" >	
+					</table>
+				 
+	
+				</div>
+			</div>
+		</div>
+	
+	<input type="hidden" id="hiddenLevel">
+	<!-- 添加project -->
+	 <div class="modal fade" id="projectInsert"   role="dialog" aria-hidden="true" style="z-index: 1100;margin-left: -150px;">
+		<div class="modal-dialog" style="width: 350px; margin-top: 20px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" aria-hidden="true" onclick="closeProjectInsert()">&times;</button>
+					<h4 class="modal-title" id="point-title">添加项目</h4>
+				</div>
+				<div class="modal-body">
+					<div style="margin-left: 25px;">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<div  class="input-group" style="width: 300px">
+									<span class="input-group-addon" style="color: black;">项目名称</span> <input id="ProjectNameInsert" type="text"
+										class="form-control" placeholder="请输入项目名称">
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer" style="text-align: center;">
+							<button class="btn btn-primary" type="button" onclick="inserProject()">确认</button>
+							<button class="btn btn-default" type="button" onclick="closeProjectInsert()">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+	<!-- 更改project -->
+	 <div class="modal fade in" id="projectChange" role="dialog" aria-hidden="true" style="z-index: 1100;margin-left: -150px;">
+		<div class="modal-dialog" style="width: 350px; margin-top: 20px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" aria-hidden="true" onclick="closeProjectChange()">&times;</button>
+					<h4 class="modal-title" id="point-title">更改</h4>
+				</div>
+				<div class="modal-body">
+					<div style="margin-left: 25px;">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<div  class="input-group" style="width: 300px">
+									<span class="input-group-addon" style="color: black;">项目名称</span> <input id="ProjectNameChange" type="text"
+										class="form-control" placeholder="请输入项目名称">
+										<input id="projectIdHidden" type="hidden"> 
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer" style="text-align: center;">
+							<button class="btn btn-primary" type="button" onclick="ChangeProject()">确认</button>
+							<button class="btn btn-default" type="button" onclick="closeProjectChange()">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+	
+	<!--第二级目录  -->
+	<!-- 新增模块 -->
+	 <div class="modal fade in" id="projectDocTypeInsert" role="dialog" aria-hidden="true" style="z-index: 1100;margin-left: -150px;">
+		<div class="modal-dialog" style="width: 350px; margin-top: 20px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" aria-hidden="true" onclick="closeProjectInsertDocTypeName()">&times;</button>
+					<h4 class="modal-title" id="point-title">添加模块</h4>
+				</div>
+				<div class="modal-body">
+					<div style="margin-left: 25px;">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<div  class="input-group" style="width: 300px">
+									<span class="input-group-addon" style="color: black;">模块名称</span> <input id="ProjectDocTypeNameInsert" type="text"
+										class="form-control" placeholder="请输入模块名称">
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer" style="text-align: center;">
+							<button class="btn btn-primary" type="button" onclick="inserProjectDocTypeName()">确认</button>
+							<button class="btn btn-default" type="button" onclick="closeProjectInsertDocTypeName()">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+	<!--更改  -->
+	 <div class="modal fade in" id="projectDocTypeAlert" role="dialog" aria-hidden="true" style="z-index: 1100;margin-left: -150px;">
+		<div class="modal-dialog" style="width: 350px; margin-top: 20px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" aria-hidden="true" onclick="closeProjectAlertDocTypeName()">&times;</button>
+					<h4 class="modal-title" id="point-title">更改模块名</h4>
+				</div>
+				<div class="modal-body">
+					<div style="margin-left: 25px;">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								
+								<div  class="input-group" style="width: 300px">
+									<span class="input-group-addon" style="color: black;">项目名称</span> <input id="ProjectDocTypeNameAlert" type="text"
+										class="form-control" placeholder="请输入模块名称">
+										<input id="projectDocTypeIdHidden" type="hidden"> 
+										<input id="projectDocTypeNameHidden" type="hidden"> 
+										<input id="projectDocNameHidden" type="hidden"> 
+										<input id="projectDocIdHidden" type="hidden"> 
+								</div>
+							</div>
+						</form>
+						<div class="modal-footer" style="text-align: center;">
+							<button class="btn btn-primary" type="button" onclick="alertProjectDocTypeName()">确认</button>
+							<button class="btn btn-default" type="button" onclick="closeProjectAlertDocTypeName()">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+		<!-- upload -->
+	 <div class="modal fade in" id="docUpload" role="dialog" aria-hidden="true" style="z-index: 1100;margin-left: -150px;">
+		<div class="modal-dialog" style="width: 450px;height:500px; margin-top: 20px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" aria-hidden="true" onclick="closeuploadProjectdoc()">&times;</button>
+					<h4 class="modal-title" id="point-title">文件上传</h4>
+				</div>
+				<div class="modal-body">
+					<div style="margin-left: 25px;">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<div  class="input-group" style="width: 400px">
+									 <input id="fileinputName" type="text"  class="form-control" placeholder="请输入文件名称">
+									 	<span class="input-group-addon" style="color: black;">上传文件名称</span>
+								</div>
+								<div  class="input-group" style="width: 400px">
+									<!-- <span  style="color: black;">上传文件</span> -->
+									<br>
+									<input id="myFile" type="file" name="myFile" class="fileloading" >
+								</div>
+							</div>
+						</form>
+						<input type="hidden" id="url_upload"/>
+						<input type="hidden" id="docName_upload">
+						<input type="hidden" id="doc_type_id_hidden">
+						<div class="modal-footer" style="text-align: center;">
+							<button class="btn btn-primary" type="button" onclick="uploadProjectdoc()">确认</button>
+							<button class="btn btn-default" type="button" onclick="closeuploadProjectdoc()">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> 
+	
+	</div>
+	
+	<script type="text/javascript">
+	$(function () {
+		toastr.options = {  
+		        closeButton: true,  //是否显示关闭按钮（提示框右上角关闭按钮）
+		        debug: false,  //是否为调试；
+		        progressBar: false,  //是否显示进度条（设置关闭的超时时间进度条）
+		        positionClass: "toast-top-center",  //消息框在页面显示的位置
+		        onclick: null,  //点击消息框自定义事件
+		        showDuration: "300",  //显示动作时间
+		        hideDuration: "1000",  //隐藏动作时间
+		        timeOut: "1000",  //自动关闭超时时间
+		        extendedTimeOut: "1000",  
+		        showEasing: "swing",  
+		        hideEasing: "linear",  
+		        showMethod: "fadeIn",  //显示的方式
+		        hideMethod: "fadeOut"  //隐藏的方式
+		};
+	})
+
+	</script>
+</body>
+</html>

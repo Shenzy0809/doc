@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snowlink.dao.TsDocOptionMapper">
+	<resultMap type="com.snowlink.bean.TsDocOption" id="QueryDocNameAll">
+		<id column="id" property="id"/>
+		<result column="doc_name" property="doc_name"/>
+		<result column="doc_endtime" property="doc_endtime"/>
+		<result column="doc_alname" property="doc_alname"/>
+	</resultMap>
+
+ 	<select id="QueryDocNameAll" resultMap="QueryDocNameAll" >
+ 		select id,doc_name,create_time,creator,update_time,updator
+ 		from ts_docoption
+ 	</select>
+ 	
+ 	<insert id="InsertDocName" parameterType="com.snowlink.bean.TsDocOption" useGeneratedKeys="true" keyProperty="id"> 
+ 		insert into ts_docoption(doc_name,create_time,creator)
+ 		values(#{doc_name},#{create_time},#{creator})
+ 	</insert>
+ 	
+ 	<update id="amendDocNameById" parameterType="com.snowlink.bean.TsDocOption">
+ 		update ts_docoption
+ 		set doc_name=#{doc_name},update_time=#{update_time},updator=#{updator}
+ 		where id=#{id}
+ 	</update>
+ 	
+ 	<delete id="delDoc" parameterType="int">
+ 		DELETE 
+    	FROM ts_docoption 
+    	WHERE id = #{id}
+ 	</delete>	
+ 	
+ 	<select id="DocCount" resultType="int">
+ 		select count(id)
+ 		from ts_docoption
+ 	</select>
+</mapper>

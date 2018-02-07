@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snowlink.dao.TsBasicDocContentMapper">
+		<resultMap type="com.snowlink.bean.TsBasicDocContent" id="QueryDocContent">
+			<id column="id" property="id"/>
+			<result column="doc_id" property="doc_id"/>
+			<result column="title_no" property="title_no"/>
+			<result column="title" property="title"/>
+			<result column="title_type" property="title_type"/>
+			<result column="content" property="content"/>
+			<result column="ordercode" property="ordercode"/>
+		</resultMap>
+	
+		<resultMap type="com.snowlink.bean.TsBasicDocContent" id="SelectByDocId">
+			<id column="id" property="id"/>
+			<result column="title_no" property="title_no"/>
+			<result column="title" property="title"/>
+			<result column="title_type" property="title_type"/>
+			<result column="content" property="content"/>
+			<result column="ordercode" property="ordercode"/>
+		</resultMap>
+		<resultMap type="com.snowlink.bean.TsBasicDocContent" id="SelectAllByidno">
+			<result column="title_no" property="title_no"/>
+			<result column="title" property="title"/>
+			<result column="title_type" property="title_type"/>
+			<result column="content" property="content"/>
+			<result column="ordercode" property="ordercode"/>
+		</resultMap>
+	
+	
+ 		<select id="QueryDocContent" resultMap="QueryDocContent">
+ 			select id,doc_id,title_no,title,title_type,content,ordercode
+ 			from ts_basicdoccontent
+ 			where ts_basicdoccontent.doc_id = #{doc_id}
+ 			order by orderCode,title_no
+ 			limit #{pageNumber},#{pageSize}
+ 		</select>
+ 		
+ 		<select id="QueryCountDocBasic" resultType="int">
+ 			select count(*)
+			from ts_basicdoccontent
+			where doc_id=#{doc_id}
+ 		</select>
+
+ 		
+ 		<select id="SelectAllByidno" resultMap="SelectAllByidno">
+ 			select title_no,title,title_type,content,ordercode
+ 			from ts_basicdoccontent
+ 			where id=#{id}
+ 		</select>
+ 		
+ 		<update id="alertContent" parameterType="com.snowlink.bean.TsBasicDocContent">
+ 			update ts_basicdoccontent
+ 			set title=#{title},title_no=#{title_no},title_type=#{title_type},content=#{content},ordercode=#{ordercode}
+ 			where id=#{id}
+ 		</update>
+ 		
+ 		<delete id="delDocContent" parameterType="int">
+	 		DELETE 
+	    	FROM ts_basicdoccontent 
+	    	WHERE id = #{id}
+ 		</delete>	
+ 		
+ 		<insert id="AddNewContent" parameterType="com.snowlink.bean.TsBasicDocContent" useGeneratedKeys="true" keyProperty="id">
+ 			insert into ts_basicdoccontent(doc_id,title_no,title,title_type,content,ordercode)
+ 			values(#{doc_id},#{title_no},#{title},#{title_type},#{content},#{ordercode})	
+ 		</insert>
+ 		
+ 		<select id="SelectAllByDocId" resultMap="SelectByDocId">
+ 			select id, title_no,title,title_type,content,ordercode
+ 			from ts_basicdoccontent
+ 			where doc_id=#{doc_id}
+ 			order by orderCode,title_no
+ 		</select>
+ 		
+ 		<select id="CheckBasicCount" parameterType="int" resultType="int">
+ 			select count(doc_id)
+ 			from ts_basicdoccontent
+ 			where doc_id=#{doc_id}
+ 		</select>
+ 		
+ 		
+ 		<select id="selectOrder" parameterType="int" resultType="int">
+ 			select max(ordercode)
+ 			from ts_basicdoccontent
+ 			where doc_id=#{doc_id}
+ 		</select>
+</mapper>

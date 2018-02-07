@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="img/snowlink.ico"/>
+<title>文档管理系统</title>
+ <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css"> 
+	
+	<link href="css/VerticalMenu.css" rel="stylesheet" />
+	<link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
+	<style type="text/css">
+		body{margin:0;}
+		.nav-def{height:60px;background-color:#005984;box-shadow:0px 4px 4px rgba(0, 0, 0, 0.35);
+				padding-bottom: 10px;padding-left: 0px;padding-right: 20px;padding-top: 10px;	}
+		.nav-def div{height:60px;}
+		.nav-def div img{width:55px;margin-left:5px;float:left;margin-top:-5px}
+		.nav-def div p{height:50px;margin-top:5px;text-align:center;color:white;font-weight:900;}
+	
+		#side{position:fixed;top:80px;height:100%;font-size:15px;background-color:#393D49;color:white}
+		 iframe{position:fixed;top:80px;width:100%;height:90%;left:200px;scrolling：auto;} 
+	</style>
+
+</head>
+
+
+<body>
+	<script type="text/javascript" src="plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="js/VerticalMenuJs.js"></script>
+	
+	<nav class="navbar navbar-default navbar-fixed-top nav-def">
+	  <div class="container" style="width:100%;padding:10px">
+	  	<img src="img/snowlink.png"/>
+	  	<p style="font-size: large;">技术服务平台文档管理系统
+	  	</p>
+	  		 <a href="#" onclick="loginOut()" style="cursor:pointer;float: right;margin-top: -35px;z-index: 9999;"><font size="3px" color="white">退出</font></a>
+	  </div>
+	</nav>
+	
+	<div id="side">
+        <div class="VerticalMenu">
+            <div>
+                <div><span style="font-size:17px;margin-left: 14px">技术方案文档</span><i class="fa fa-angle-right fa-lg"></i></div>
+                <div name="xz" id="tech">
+                </div>
+            </div>
+        	<div>
+                <div onclick="project()"><span style="font-size:17px;margin-left: 14px">项目文档</span></div>
+                <div name="xz" id="project"></div>
+            </div>
+            
+        </div>
+    </div>
+    <iframe id="showContent" >
+
+    </iframe>
+</body>
+
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			url:'DocOption/DocNQuery',
+			type:'get',
+			dataType:'json',
+			success:function(data){
+				var html = "";
+				$.each(data, function (n, value) {
+					html += ("<div ><div style='margin-left:14px'><span style='margin-right:12px' id='value.id' onclick='DocContent("+ value.id +")'> " + value.doc_name + "</span></div></div>");
+					
+		        });
+				$("#tech").html(html);
+			}
+		});
+		
+	});
+
+	function project(){
+		$("#showContent").attr('src','/snowlink_doc/view/project.html?times='
+						+ new Date().getTime());
+	}
+	
+ 	function DocContent(doc_id){
+		$("#showContent").attr("name",doc_id);
+		$("#showContent").attr('src','/snowlink_doc/view/index.html');
+	}
+ 	function loginOut(){
+		$.ajax({
+		 	url : 'user/loginout',
+			type : 'post',
+			success : function(data) {
+				window.location.href="login.html";
+			},
+			error : function(e) {
+				alert(0);
+			}
+	 });
+	
+	}
+</script>
+</html>

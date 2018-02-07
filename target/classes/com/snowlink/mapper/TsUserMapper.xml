@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snowlink.dao.TsUserMapper">
+		
+		<select id="CheckLogin" parameterType="string" resultType="string">
+			select password
+			from sys_user
+			where username=#{username}
+		</select>
+		
+		
+		<select id="QueryIdName" parameterType="string" resultType="com.snowlink.bean.TsSysUser">
+			select admin_id AS adminId,
+					name AS name,
+					authority_level AS authorityLevel
+			from sys_user
+			where username=#{username}
+		</select>
+</mapper>
